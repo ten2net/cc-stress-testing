@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "web": "node test/web-test.js",
-    "api-test-": "node test/api-test-cc-bots.js",
+    "api-test-cc-bots": "node test/api-test-cc-bots.js",
     "api-test-a6k": "node test/api-test-a6k.js",    
     "test": "echo \"Error: no test specified\" && exit 1"
   },
