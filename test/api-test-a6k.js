@@ -1,10 +1,12 @@
 const axios = require('axios');
 const async = require('async');
 
-const CONCURRENCY = 100; // 并发请求的数量
+
+const CONCURRENCY = 10; // 并发请求的数量
 const TOTAL_REQUESTS = 100000; // 总的请求次数
 
-const GPT_API_URL = 'http://workspace.featurize.cn:51259/v1/chat/completions'; // API URL
+// const GPT_API_URL = 'http://workspace.featurize.cn:51259/v1/chat/completions'; // API URL
+const GPT_API_URL = 'http://192.168.15.130:13090/v1/chat/completions'; // API URL
 const API_KEY = ''; // 你的 API key
 
 const options = {
@@ -26,10 +28,12 @@ async.timesLimit(TOTAL_REQUESTS, CONCURRENCY, async () => {
     stream: false
   }
   try {
+    const before = Date.now()
     const response = await axios.post(GPT_API_URL, payload, options);
+    const duration = (Date.now() - before)/1000
     if (response.status === 200) {
       counter++;
-      console.log(`Request ${counter}/${counterAll} was successful`);
+      console.log(`用时：${duration} 秒， Request ${counter}/${counterAll} was successful`);
     }
   } catch (error) {
     console.error(`Request failed: ${error.message}`,  `失败数据：${counterAll - counter}/${counterAll}`);
